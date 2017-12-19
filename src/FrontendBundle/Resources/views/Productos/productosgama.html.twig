@@ -2,26 +2,26 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('bundles/APP/css/default.css') }}" />
-    <link rel="stylesheet" href="{{ asset('bundles/APP/css/productos/productosGamas.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/APP/css/libros/librosCategorias.css') }}" />
 {% endblock %}
 
 {% block breadcrumb %}
-    <li>/ <a href="{{ path('app_productos_productosgama', {gama: 'all'}) }}">Productos</a></li>
-    {% if gama != 'all' %}
-    <li>/ <span style="color: gray;">{{ gama_nombre }}</span></li>
+    <li>/ <a href="{{ path('frontend_libros_libroscategoria', {categoria: 'all'}) }}">Libros</a></li>
+    {% if categoria != 'all' %}
+    <li>/ <span style="color: gray;">{{ categoria_nombre }}</span></li>
     {% endif %}
 {% endblock %}
 
 {% block main %}
     {% if pagination.getTotalItemCount > 0 %}
-    {% if gama_nombre != 'all' %}
-        <div id="gama">
-            <div id="gama-left">
-                <h2> {{ gama.gama }}</h2>
-                <p> {{ gama.descripciontexto }}</p>
+    {% if categoria_nombre != 'all' %}
+        <div id="categoria">
+            <div id="categoria-left">
+                <h2> {{ categoria.nombreCategoria }}</h2>
+                <p> {{ categoria.descripciontexto }}</p>
             </div>
-            <div id="gama-right">
-                <img src="{{ asset('img/gamas/' ~ gama.imagen ) }}">
+            <div id="categoria-right">
+                <img src="{{ asset('img/categorias/' ~ categoria.imagen ) }}">
             </div>
         </div>
     {% endif %}
@@ -29,11 +29,11 @@
     <div class="navigation">
         {{ knp_pagination_render(pagination) }}
     </div>
-    <div class="productos">
+    <div class="libros">
 
         {% for p in pagination %}
-        <div class="producto">
-            <a href="{{ path('app_productos_ver', {producto: p.codigoproducto}) }}">
+        <div class="libro">
+            <a href="{{ path('frontend_libros_ver', {libro: p.codigolibro}) }}">
                 <img src="{{ asset('img/plantas/') }}{{ p.imagen }}" alt="...">
             </a>
             <h3>{{ p.nombre }}</h3>
@@ -44,7 +44,7 @@
         {% endfor %}
     </div>
     {% else %}
-        <h1>No hay productos en la gama '{{ gama_nombre }}'.</h1>
+        <h1>No hay libros en la categoria '{{ categoria_nombre }}'.</h1>
     {% endif %}
 {% endblock %}
 

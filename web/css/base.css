@@ -3,21 +3,30 @@
     padding: 0;
 }
 
+body {
+    position: relative;
+}
+
 header {
     height: 100px;
     width: 100%;
     display: flex;
     flex-flow: row nowrap;
-    
+    position: fixed;
+    background-color: rgba(164, 97, 31, 0.7);
+    border-bottom: 3px black solid;
+    z-index: 1;
 }
 
 header #header-logo {
     width: 20%;
-    background-image: url('../img/logo-verderalia.png');
+    background-image: url('../img/logo_librerion.png');
     height: 100px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    position: relative;
+    margin: 0 20px;
 }
 
 header #header-content {
@@ -45,26 +54,25 @@ header #header-content #header-top nav a {
 }
 header #header-content #header-top nav a:hover{
     text-decoration: none;
-        transform: scale(1.1);
-    color: rgba(98,153, 10, .9);
+    transform: scale(1.1);
+    color: rgba(167, 99, 32, 0.9);
 }
 
 header #header-content #header-bottom {
     height: 40px;
-    background-color: rgba(98,153, 10, .7);
     display: flex;
     flex-flow: column;
     justify-content: flex-end;
 }
 
-header #header-content #header-bottom #navgamas {
+header #header-content #header-bottom #navcategorias {
     width: 60%;
     height: 100%;;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-around;
 }
-header #header-content #header-bottom #navgamas a{
+header #header-content #header-bottom #navcategorias a{
     text-decoration: none;
     padding-top: 10px;
     color: white;
@@ -72,8 +80,8 @@ header #header-content #header-bottom #navgamas a{
     text-align: center;
 }
 
-header #header-content #header-bottom #navgamas a:hover{
-    background-color: rgba(98,153, 10, .9); 
+header #header-content #header-bottom #navcategorias a:hover{
+    background-color: rgba(167, 99, 32, 0.9);
 }
 
 nav.breadcrumb {
@@ -81,14 +89,15 @@ nav.breadcrumb {
     height: 50px;
 }
 main  {
- 
-    min-height: 500px;
+    position: relative;
+    top: 100px;
     width: 90%;
     margin: 0 auto;
 }
 
 footer {
-    
+    position: absolute;
+    bottom: 0;
     height: 100px;
     background-color: rgba(0,0,0,.7);
     width: 100%;
@@ -121,4 +130,8 @@ footer nav a:hover {
 
 .breadcrumb li {
     padding: 0 5px;
+}
+
+a {
+    color: black;
 }

@@ -6,61 +6,61 @@
  * Time: 13:46
  */
 
-namespace AppBundle\Controller;
+namespace FrontendBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class ProductosController extends Controller
+class LibrosController extends Controller
 {
-    public $gamas;
-    public $productos;
+    public $categorias;
+    public $libros;
     public $pagination;
 
     private function Load() {
         DefaultController::Load($this);
     }
 
-    public function LoadListado($vgama, $request)
+    public function LoadListado($vcategoria, $request)
     {
         $this->Load();
-        $this->productos = $this->getDoctrine()->getManager()->getRepository('BDBundle:Productos')->getProductosGama($vgama);
+        $this->libros = $this->getDoctrine()->getManager()->getRepository('BDBundle:Libros')->getLibrosCategoria($vcategoria);
 
         if($request) {
             $paginator  = $this->get('knp_paginator');
             $this->pagination = $paginator->paginate(
-                $this->productos, /* query NOT result */
+                $this->libros, /* query NOT result */
                 $request->query->getInt('page', 1)/*page number*/,
                 10/*limit per page*/
             );
         }
     }
 
-    public function productosgamaAction(Request $request, $gama = 'all')
+    public function librosCategoriaAction(Request $request, $categoria = 'all')
     {
-        $this->LoadListado($gama, $request);
+        $this->LoadListado($categoria, $request);
 
-        setcookie('gama_nombre', $gama, time() + 3600 * 24, '/');
+        setcookie('categoria_nombre', $categoria, time() + 3600 * 24, '/');
 
-        return $this->render('FrontendBundle:Productos:productosgama.html.twig', array(
-            'gamas' => $this->gamas,
-            'gama' => $gama != 'all' ? $this->gamas[$this->array_search_inner($this->gamas, 'gama', $gama)] : 'all',
-            'gama_nombre' => $gama,
+        return $this->render('FrontendBundle:Libros:libroscategoria.html.twig', array(
+            'categorias' => $this->categorias,
+            'categoria' => $categoria != 'all' ? $this->categorias[$this->array_search_inner($this->categorias, 'categoria', $categoria)] : 'all',
+            'categoria_nombre' => $categoria,
             'pagination' => $this->pagination,
-            'productos' => $this->productos->getArrayResult()
+            'libros' => $this->libros->getArrayResult()
         ));
     }
 
-    public function verAction($producto)
+    public function verAction($libro)
     {
         $this->Load();
-        $prod = $this->getDoctrine()->getManager()->getRepository('BDBundle:Productos')->getProducto($producto);
+        $prod = $this->getDoctrine()->getManager()->getRepository('BDBundle:Libros')->getLibro($libro);
 
-        return $this->render('FrontendBundle:Productos:ver.html.twig', array(
-            'gamas' => $this->gamas,
-            'producto' => $prod,
-            'gama_nombre' => !array_key_exists("gama_nombre", $_COOKIE) ? "Todas" : $_COOKIE["gama_nombre"]
+        return $this->render('FrontendBundle:Libros:ver.html.twig', array(
+            'categorias' => $this->categorias,
+            'libro' => $prod,
+            'categoria_nombre' => !array_key_exists("categoria_nombre", $_COOKIE) ? "Todas" : $_COOKIE["categoria_nombre"]
         ));
     }
 

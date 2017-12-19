@@ -11,9 +11,9 @@ app_default:
     prefix:   /admin
 
 app_ayuda:
-        resource: "@AppBundle/Resources/config/ayuda.yml"
+        resource: "@FrontendBundle/Resources/config/ayuda.yml"
         prefix:   /ayuda
 
-app_productos:
-    resource: "@AppBundle/Resources/config/productos.yml"
-    prefix:   /productos
+app_libros:
+    resource: "@FrontendBundle/Resources/config/libros.yml"
+    prefix:   /libros

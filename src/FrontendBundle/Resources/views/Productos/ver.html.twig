@@ -2,33 +2,33 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('bundles/APP/css/default.css') }}" />
-    <link rel="stylesheet" href="{{ asset('bundles/APP/css/productos/verProducto.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/APP/css/libros/verLibro.css') }}" />
 {% endblock %}
 
 {% block breadcrumb %}
-    <li>/ <a href="{{ path('app_productos_productosgama', {gama: 'all'}) }}">Productos</a></li>
-    <li>/ <span style="color: gray;">{{ producto.nombre }}</span></li>
+    <li>/ <a href="{{ path('frontend_libros_libroscategoria', {categoria: 'all'}) }}">Libros</a></li>
+    <li>/ <span style="color: gray;">{{ libro.nombre }}</span></li>
 {% endblock %}
 
 {% block main %}
     <div id="detalle">
-        <img src="{{ asset('img/plantas/') }}{{producto.imagen}}" alt="...">
+        <img src="{{ asset('img/plantas/') }}{{libro.imagen}}" alt="...">
         <div id="datos">
-            <h2>{{producto.nombre}}-{{producto.codigoproducto}}</h2>
-            <h4>{{gama_nombre}}</h4>
-            <p>{{producto.descripcion}}</p>
+            <h2>{{libro.nombre}}-{{libro.codigolibro}}</h2>
+            <h4>{{categoria_nombre}}</h4>
+            <p>{{libro.descripcion}}</p>
             <div id="extra">
                 <div>
                     <label>Proveedor</label>
-                    <p>{{producto.proveedor}}</p>
+                    <p>{{libro.proveedor}}</p>
                 </div>
                 <div>
                     <label>Precio</label>
-                    <p>{{producto.precioventa}} <i class="fa fa-eur" aria-hidden="true"></i></p>
+                    <p>{{libro.precioventa}} <i class="fa fa-eur" aria-hidden="true"></i></p>
                 </div>
                 <div>
                     <label>Cantidad en Stock</label>
-                    <p><i class="fa fa-database" aria-hidden="true"></i>{{producto.cantidadenstock}} </p>
+                    <p><i class="fa fa-database" aria-hidden="true"></i>{{libro.cantidadenstock}} </p>
                 </div>
             </div>
         </div>

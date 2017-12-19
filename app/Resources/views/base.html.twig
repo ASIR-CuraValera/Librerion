@@ -13,20 +13,18 @@
     </head>
     <body>
         <header>
-            <div id="header-logo">
-
-            </div>
+            <div id="header-logo"></div>
             <div id="header-content">
                 <div id="header-top">
                     <nav>
-                        <a href="{{ path('app_conocenos') }}"><i class="fa fa-handshake-o" aria-hidden="true"></i> Conocenos</a>
-                        <a href="{{ path('app_ayuda_instalaciones') }}"><i class="fa fa-building" aria-hidden="true"></i> Instalaciones</a>
+                        <a href="{{ path('frontend_conocenos') }}"><i class="fa fa-handshake-o" aria-hidden="true"></i> Conocenos</a>
+                        <a href="{{ path('frontend_ayuda_instalaciones') }}"><i class="fa fa-building" aria-hidden="true"></i> Instalaciones</a>
                         <a href="#"><i class="fa fa-mobile" aria-hidden="true"></i> Contacto</a>
                     </nav>
                 </div>
                 <div id="header-bottom">
-                    <nav id="navgamas">
-                        {% block navgamas %}{% endblock %}
+                    <nav id="navcategorias">
+                        {% block navcategorias %}{% endblock %}
                     </nav>
                 </div>
             </div>
@@ -35,7 +33,7 @@
             <nav id="breadcrumb" aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="{{ path('app_home') }}">
+                        <a href="{{ path('frontend_home') }}">
                             <i class="fa fa-home" aria-hidden="true"></i>
                         </a>
                     </li>
@@ -48,7 +46,7 @@
             <nav>
                 <a href="#">Seguimiento de Pedidos</a>
                 <a href="#">Envío y devoluciones</a>
-                <a href="{{ path('app_ayuda_formaspago') }}">Formas de pago</a>
+                <a href="{{ path('frontend_ayuda_formaspago') }}">Formas de pago</a>
             </nav>
         </footer>
         {% block javascripts %}{% endblock %}

@@ -4,21 +4,22 @@
     <link rel="stylesheet" href="{{ asset('bundles/APP/css/default.css') }}" />
 {% endblock %}
 
-{% block navgamas %}
+{% block navcategorias %}
 
-    <a href='{{ path('app_productos_productosgama', {gama: 'all'}) }}'>Todas</a>
-    {% for g in gamas %}
-        <a href='{{ path('app_productos_productosgama', {gama: g.gama}) }}'>{{ g.gama }}</a>
+    <a href='{{ path('frontend_libros_libroscategoria', {categoria: 'all'}) }}'>Todas</a>
+    {% for g in categorias %}
+        <a href='{{ path('frontend_libros_libroscategoria', {categoria: g.nombreCategoria}) }}'>{{ g.nombreCategoria }}</a>
     {% endfor %}
 
 {% endblock %}
 
 {% block main %}
     <div id="inicio">
-        <h1>Verderalia Jardinería</h1>
+        <h1>Librerion - La librería de las librerías</h1>
         <img src="{{ asset('img/inicio.jpg') }} ">
-        <p>La esmerada forma de trabajar, la pasión que firmamos en cada proyecto, nos permite, desde Verderalia Jardinería, realizar todo tipo de trabajos, que van desde trabajos puntuales, mantenimientos a particulares, empresas, comunidades de propietarios.</p>
+        <p>La forma de trabajar, la pasión que firmamos en cada proyecto, nos permite, desde Librerion, realizar todo tipo de trabajos, que van desde trabajos puntuales, mantenimientos a particulares, empresas, comunidades de propietarios.</p>
     </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 {% endblock %}
 
 

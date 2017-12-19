@@ -1,0 +1,7 @@
+frontend_libros_libroscategoria:
+    path: /categoria/{categoria}
+    defaults: { _controller: FrontendBundle:Libros:libroscategoria }
+
+frontend_libros_ver:
+    path: /ver/{libro}
+    defaults: { _controller: FrontendBundle:Libros:ver }

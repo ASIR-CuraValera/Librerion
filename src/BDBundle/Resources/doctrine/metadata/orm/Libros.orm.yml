@@ -1,0 +1,77 @@
+Libros:
+    type: entity
+    table: libros
+    indexes:
+        LibrosCat:
+            columns:
+                - categoriaid
+        LibrosEdit:
+            columns:
+                - editorid
+    id:
+        libroId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: libro_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreLibro:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+                default: ''
+            column: nombre_libro
+        descripcion:
+            type: text
+            nullable: false
+            length: null
+            options:
+                fixed: false
+        precio:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+            options:
+                default: '0'
+        entrega:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                default: '0'
+        imagen:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+                default: ''
+    manyToOne:
+        categoriaid:
+            targetEntity: Categorias
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                categoriaid:
+                    referencedColumnName: categoriaid
+            orphanRemoval: false
+        editorid:
+            targetEntity: Editores
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                editorid:
+                    referencedColumnName: editorid
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
