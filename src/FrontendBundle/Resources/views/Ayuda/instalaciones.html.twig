@@ -1,0 +1,12 @@
+{% extends 'FrontendBundle:Default:index.html.twig' %}
+
+{% block main %}
+    <h2> Nuestras instalaciones</h2>
+    <p>a sede de Planeta Huerto está ubicada en Carretera de Bacarot, 12 (Alicante). En nuestro almacén disponemos de la gran mayoría de referencias que ofrecemos en nuestra web, por lo que podemos gestionar los pedidos con total rapidez.
+    <p>Diariamente, varias empresas de transporte recogen los pedidos que se preparan en nuestro almacén y se encargan de hacerlo llega a tu domicilio en 24-48 horas laborables.</p>
+    <!--- <img src="img/recogida.jpg"> -->
+{% endblock %}
+
+{% block breadcrumb %}
+    <li>/ <a href="{{ path('app_ayuda_instalaciones') }}">Instalaciones</a></li>
+{% endblock %}

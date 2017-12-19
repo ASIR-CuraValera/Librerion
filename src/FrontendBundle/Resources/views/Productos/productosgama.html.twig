@@ -1,0 +1,50 @@
+{% extends 'FrontendBundle:Default:index.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/APP/css/default.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/APP/css/productos/productosGamas.css') }}" />
+{% endblock %}
+
+{% block breadcrumb %}
+    <li>/ <a href="{{ path('app_productos_productosgama', {gama: 'all'}) }}">Productos</a></li>
+    {% if gama != 'all' %}
+    <li>/ <span style="color: gray;">{{ gama_nombre }}</span></li>
+    {% endif %}
+{% endblock %}
+
+{% block main %}
+    {% if pagination.getTotalItemCount > 0 %}
+    {% if gama_nombre != 'all' %}
+        <div id="gama">
+            <div id="gama-left">
+                <h2> {{ gama.gama }}</h2>
+                <p> {{ gama.descripciontexto }}</p>
+            </div>
+            <div id="gama-right">
+                <img src="{{ asset('img/gamas/' ~ gama.imagen ) }}">
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+    <div class="productos">
+
+        {% for p in pagination %}
+        <div class="producto">
+            <a href="{{ path('app_productos_ver', {producto: p.codigoproducto}) }}">
+                <img src="{{ asset('img/plantas/') }}{{ p.imagen }}" alt="...">
+            </a>
+            <h3>{{ p.nombre }}</h3>
+            <p>{{ p.precioventa }} <i class="fa fa-eur" aria-hidden="true"></i><br>
+                <i class="fa fa-database" aria-hidden="true"></i>{{ p.cantidadenstock }} en Stock
+            </p>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <h1>No hay productos en la gama '{{ gama_nombre }}'.</h1>
+    {% endif %}
+{% endblock %}
+

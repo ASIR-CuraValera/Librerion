@@ -1,0 +1,7 @@
+app_ayuda_formaspago:
+    path: /formaspago
+    defaults: { _controller: FrontendBundle:Ayuda:formaspago }
+
+app_ayuda_instalaciones:
+    path: /instalaciones
+    defaults: { _controller: FrontendBundle:Ayuda:instalaciones }

@@ -1,0 +1,37 @@
+{% extends 'FrontendBundle:Default:index.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/APP/css/default.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/APP/css/productos/verProducto.css') }}" />
+{% endblock %}
+
+{% block breadcrumb %}
+    <li>/ <a href="{{ path('app_productos_productosgama', {gama: 'all'}) }}">Productos</a></li>
+    <li>/ <span style="color: gray;">{{ producto.nombre }}</span></li>
+{% endblock %}
+
+{% block main %}
+    <div id="detalle">
+        <img src="{{ asset('img/plantas/') }}{{producto.imagen}}" alt="...">
+        <div id="datos">
+            <h2>{{producto.nombre}}-{{producto.codigoproducto}}</h2>
+            <h4>{{gama_nombre}}</h4>
+            <p>{{producto.descripcion}}</p>
+            <div id="extra">
+                <div>
+                    <label>Proveedor</label>
+                    <p>{{producto.proveedor}}</p>
+                </div>
+                <div>
+                    <label>Precio</label>
+                    <p>{{producto.precioventa}} <i class="fa fa-eur" aria-hidden="true"></i></p>
+                </div>
+                <div>
+                    <label>Cantidad en Stock</label>
+                    <p><i class="fa fa-database" aria-hidden="true"></i>{{producto.cantidadenstock}} </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

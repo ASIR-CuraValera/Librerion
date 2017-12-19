@@ -1,0 +1,7 @@
+app_productos_productosgama:
+    path: /gama/{gama}
+    defaults: { _controller: FrontendBundle:Productos:productosgama }
+
+app_productos_ver:
+    path: /ver/{producto}
+    defaults: { _controller: FrontendBundle:Productos:ver }

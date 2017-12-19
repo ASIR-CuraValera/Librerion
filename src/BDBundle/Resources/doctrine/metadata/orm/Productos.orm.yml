@@ -1,0 +1,83 @@
+Productos:
+    type: entity
+    table: productos
+    indexes:
+        Productos_gamaFK:
+            columns:
+                - Gama
+    id:
+        codigoproducto:
+            type: string
+            nullable: false
+            length: 15
+            options:
+                fixed: false
+            id: true
+            column: CodigoProducto
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: false
+            length: 70
+            options:
+                fixed: false
+            column: Nombre
+        dimensiones:
+            type: string
+            nullable: true
+            length: 25
+            options:
+                fixed: false
+            column: Dimensiones
+        proveedor:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: Proveedor
+        descripcion:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: Descripcion
+        cantidadenstock:
+            type: smallint
+            nullable: false
+            options:
+                unsigned: false
+            column: CantidadEnStock
+        precioventa:
+            type: decimal
+            nullable: false
+            precision: 15
+            scale: 2
+            column: PrecioVenta
+        precioproveedor:
+            type: decimal
+            nullable: true
+            precision: 15
+            scale: 2
+            column: PrecioProveedor
+        imagen:
+            type: string
+            nullable: false
+            length: 20
+            options:
+                fixed: false
+    manyToOne:
+        gama:
+            targetEntity: Gamasproductos
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                Gama:
+                    referencedColumnName: Gama
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

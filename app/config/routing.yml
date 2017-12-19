@@ -1,0 +1,19 @@
+frontend:
+    resource: "@FrontendBundle/Resources/config/routing.yml"
+    prefix:   /
+
+bd:
+    resource: "@BDBundle/Resources/config/routing.yml"
+    prefix:   /bd
+
+app_default:
+    resource: "@AppBundle/Resources/config/default.yml"
+    prefix:   /admin
+
+app_ayuda:
+        resource: "@AppBundle/Resources/config/ayuda.yml"
+        prefix:   /ayuda
+
+app_productos:
+    resource: "@AppBundle/Resources/config/productos.yml"
+    prefix:   /productos

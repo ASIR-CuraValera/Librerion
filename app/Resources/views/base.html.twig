@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Jardineria{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('bundles/BS/css/bootstrap.min.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('bundles/BS/js/jquery-3.2.1.min.js') }}"/>
+        <link rel="stylesheet" href="{{ asset('bundles/BS/js/bootstrap.min.js') }}"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{ asset('css/base.css') }}"/>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <header>
+            <div id="header-logo">
+
+            </div>
+            <div id="header-content">
+                <div id="header-top">
+                    <nav>
+                        <a href="{{ path('app_conocenos') }}"><i class="fa fa-handshake-o" aria-hidden="true"></i> Conocenos</a>
+                        <a href="{{ path('app_ayuda_instalaciones') }}"><i class="fa fa-building" aria-hidden="true"></i> Instalaciones</a>
+                        <a href="#"><i class="fa fa-mobile" aria-hidden="true"></i> Contacto</a>
+                    </nav>
+                </div>
+                <div id="header-bottom">
+                    <nav id="navgamas">
+                        {% block navgamas %}{% endblock %}
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <main>
+            <nav id="breadcrumb" aria-label="breadcrumb" role="navigation">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{{ path('app_home') }}">
+                            <i class="fa fa-home" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    {% block breadcrumb %}{% endblock %}
+                </ol>
+            </nav>
+            {% block main %}{% endblock %}
+        </main>
+        <footer>
+            <nav>
+                <a href="#">Seguimiento de Pedidos</a>
+                <a href="#">Envío y devoluciones</a>
+                <a href="{{ path('app_ayuda_formaspago') }}">Formas de pago</a>
+            </nav>
+        </footer>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

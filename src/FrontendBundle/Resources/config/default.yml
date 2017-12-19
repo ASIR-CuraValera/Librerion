@@ -1,0 +1,7 @@
+app_home:
+    path: /
+    defaults: { _controller: FrontendBundle:Default:index }
+
+app_conocenos:
+    path: /conocenos
+    defaults: { _controller: FrontendBundle:Default:conocenos }
