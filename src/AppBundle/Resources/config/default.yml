@@ -3,5 +3,5 @@ app_admin:
     defaults: { _controller: AppBundle:Default:index }
 
 app_crearlibro:
-    path: /
+    path: /crear
     defaults: { _controller: AppBundle:Default:create }

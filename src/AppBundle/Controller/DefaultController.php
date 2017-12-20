@@ -36,7 +36,9 @@ class DefaultController extends Controller
 
     private function Load($ref, $request)
     {
+        $ref->libros = $ref->getDoctrine()->getManager()->getRepository('BDBundle:Libros')->getLibrosCategoria('all');
         $ref->categorias = $ref->getDoctrine()->getManager()->getRepository('BDBundle:Libros')->getCategorias();
+
         $paginator  = $this->get('knp_paginator');
         $this->pagination = $paginator->paginate(
             $this->libros,
@@ -47,7 +49,6 @@ class DefaultController extends Controller
 
     public function indexAction(Request $request)
     {
-        $this->libros = $this->getDoctrine()->getManager()->getRepository('BDBundle:Libros')->getLibrosCategoria('all');
         $this->Load($this, $request);
 
         //Formulario
@@ -61,45 +62,39 @@ class DefaultController extends Controller
         ));
     }
 
-    /**
-     * Creates a new Demo entity.
-     *
-     * @Route("/", name="app_crearlibro")
-     * @Method("POST")
-     *
-     */
     public function createAction(Request $request)
     {
-        //echo "aaa";
-        //die;
+        $this->Load($this, $request);
+
+        $arr = array();
+        $arr['message'] = 'You can access this only using Ajax!';
 
         //This is optional. Do not do this check if you want to call the same action using a regular request.
-        if (!$request->isXmlHttpRequest()) {
-            return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
-        }
+        if (!$request->isXmlHttpRequest())
+            return new JsonResponse($arr, 400);
 
         $entity = new Libros();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        $arr['form'] = $this->render('AppBundle:Default:index.html.twig', array(
+                                     'nuevo_libro_formulario' => $form->createView(),
+                                     'libros' => $this->pagination,
+                                     'categorias' => $this->categorias));
+
+        if ($form->isValid())
+        {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
-            return new JsonResponse(array('message' => 'Success!'), 200);
+            $arr['message'] = "Success!";
+            return new JsonResponse($arr, 200);
         }
 
-        $response = new JsonResponse(
-            array(
-                'message' => 'Error',
-                'form' => $this->render('AppBundle:Default:index.html.twig',
-                    array(
-                        'entity' => $entity,
-                        'form' => $form->createView(),
-                    ))), 400);
-
-        return $response;
+        $arr['message'] = $this->getErrorMessagesFromUnbubblingForm($form);
+        $arr['request'] = $request->get('data');
+        return new JsonResponse($arr, 400);
     }
 
     /**
@@ -118,5 +113,51 @@ class DefaultController extends Controller
             ));
 
         return $form;
+    }
+
+    public function getErrorMessagesFromUnbubblingForm(\Symfony\Component\Form\FormInterface $form)
+    {
+        $errors = array();
+        foreach ($form->getErrors() as $key => $error) {
+            $template = $error->getMessageTemplate();
+            $parameters = $error->getMessageParameters();
+
+            foreach ($parameters as $var => $value) {
+                $template = str_replace($var, $value, $template);
+            }
+
+            $errors[$key] = $template;
+        }
+        if ($form->count()) {
+            foreach ($form as $child) {
+                if (!$child->isValid()) {
+                    $errors[$child->getName()] = $this->getErrorMessagesFromUnbubblingForm($child);
+                }
+            }
+        }
+        return $errors;
+    }
+
+    public function getFlatErrorMessagesFromUnbubblingForm(\Symfony\Component\Form\FormInterface $form)
+    {
+        $errors = array();
+        foreach ($form->getErrors() as $error) {
+            $template = $error->getMessageTemplate();
+            $parameters = $error->getMessageParameters();
+
+            foreach ($parameters as $var => $value) {
+                $template = str_replace($var, $value, $template);
+            }
+
+            $errors[] = $template;
+        }
+        if ($form->count()) {
+            foreach ($form as $child) {
+                if (!$child->isValid()) {
+                    $errors = $this->getFlatErrorMessagesFromUnbubblingForm($child);
+                }
+            }
+        }
+        return $errors;
     }
 }
