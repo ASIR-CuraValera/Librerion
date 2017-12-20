@@ -11,6 +11,7 @@ namespace FrontendBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use BDBundle\Entity\LibrosRepository;
 
 class LibrosController extends Controller
 {
@@ -27,12 +28,13 @@ class LibrosController extends Controller
         $this->Load();
         $this->libros = $this->getDoctrine()->getManager()->getRepository('BDBundle:Libros')->getLibrosCategoria($vcategoria);
 
-        if($request) {
+        if($request)
+        {
             $paginator  = $this->get('knp_paginator');
             $this->pagination = $paginator->paginate(
-                $this->libros, /* query NOT result */
-                $request->query->getInt('page', 1)/*page number*/,
-                10/*limit per page*/
+                $this->libros,
+                $request->query->getInt('page', 1),
+                12
             );
         }
     }
@@ -41,12 +43,15 @@ class LibrosController extends Controller
     {
         $this->LoadListado($categoria, $request);
 
-        setcookie('categoria_nombre', $categoria, time() + 3600 * 24, '/');
+        $cat = $categoria != 'all' ? $this->categorias[LibrosRepository::array_search_inner($this->categorias, 'categoriaid', $categoria)] : array("nombreCategoria" => 'Todas');
+        $catnom = $cat["nombreCategoria"];
+
+        setcookie('categoria_nombre', $catnom, time() + 3600 * 24, '/');
 
         return $this->render('FrontendBundle:Libros:libroscategoria.html.twig', array(
             'categorias' => $this->categorias,
-            'categoria' => $categoria != 'all' ? $this->categorias[$this->array_search_inner($this->categorias, 'categoria', $categoria)] : 'all',
-            'categoria_nombre' => $categoria,
+            'categoria' => $categoria != 'all' ? $cat : array("categoriaid" => 'all', "nombreCategoria" => 'Todas'),
+            'categoria_nombre' => $catnom,
             'pagination' => $this->pagination,
             'libros' => $this->libros->getArrayResult()
         ));
@@ -63,27 +68,5 @@ class LibrosController extends Controller
             'categoria_nombre' => !array_key_exists("categoria_nombre", $_COOKIE) ? "Todas" : $_COOKIE["categoria_nombre"]
         ));
     }
-
-    private function array_search_inner ($array, $attr, $val, $strict = FALSE) {
-        // Error is input array is not an array
-        if (!is_array($array)) return FALSE;
-        // Loop the array
-        foreach ($array as $key => $inner) {
-            // Error if inner item is not an array (you may want to remove this line)
-            if (!is_array($inner)) return FALSE;
-            // Skip entries where search key is not present
-            if (!isset($inner[$attr])) continue;
-            if ($strict) {
-                // Strict typing
-                if ($inner[$attr] === $val) return $key;
-            } else {
-                // Loose typing
-                if ($inner[$attr] == $val) return $key;
-            }
-        }
-        // We didn't find it
-        return NULL;
-    }
-
 
 }

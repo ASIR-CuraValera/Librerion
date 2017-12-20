@@ -2,21 +2,25 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Jardineria{% endblock %}</title>
+        <title>Librerion - {% block title %}Tu libreria favorita{% endblock %}</title>
         <link rel="stylesheet" href="{{ asset('bundles/BS/css/bootstrap.min.css') }}"/>
-        <link rel="stylesheet" href="{{ asset('bundles/BS/js/jquery-3.2.1.min.js') }}"/>
-        <link rel="stylesheet" href="{{ asset('bundles/BS/js/bootstrap.min.js') }}"/>
+        <script type="text/javascript" src="{{ asset('bundles/BS/js/jquery-3.2.1.min.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="{{ asset('bundles/BS/js/bootstrap.min.js') }}"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="{{ asset('css/base.css') }}"/>
         {% block stylesheets %}{% endblock %}
+        {% block javascripts %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+    {% block body %}{% endblock %}
         <header>
             <div id="header-logo"></div>
             <div id="header-content">
                 <div id="header-top">
                     <nav>
+                        <a href="{{ path('app_admin') }}"><i class="fa fa-handshake-o" aria-hidden="true"></i> Administración</a>
                         <a href="{{ path('frontend_conocenos') }}"><i class="fa fa-handshake-o" aria-hidden="true"></i> Conocenos</a>
                         <a href="{{ path('frontend_ayuda_instalaciones') }}"><i class="fa fa-building" aria-hidden="true"></i> Instalaciones</a>
                         <a href="#"><i class="fa fa-mobile" aria-hidden="true"></i> Contacto</a>
@@ -49,6 +53,5 @@
                 <a href="{{ path('frontend_ayuda_formaspago') }}">Formas de pago</a>
             </nav>
         </footer>
-        {% block javascripts %}{% endblock %}
     </body>
 </html>

@@ -19,7 +19,7 @@ class DefaultController extends Controller
     {
         DefaultController::Load($this);
 
-        return $this->render('FrontendBundle:Default:index.html.twig', array(
+        return $this->render('FrontendBundle:Default:video.html.twig', array(
             'categorias' => $this->categorias
         ));
     }

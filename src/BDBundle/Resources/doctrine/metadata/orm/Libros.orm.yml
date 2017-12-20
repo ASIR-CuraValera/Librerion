@@ -40,6 +40,12 @@ Libros:
             scale: 0
             options:
                 default: '0'
+        stock:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                default: '666'
         entrega:
             type: integer
             nullable: false

@@ -1,0 +1,60 @@
+{% extends 'FrontendBundle:Default:index.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/FRONT/css/default.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/FRONT/css/libros/librosCategorias.css') }}" />
+{% endblock %}
+
+{% block breadcrumb %}
+    <li>/ <a href="{{ path('frontend_libros_libroscategoria', {categoria: 'all'}) }}">Libros</a></li>
+    {% if categoria != 'all' %}
+    <li>/ <span style="color: gray;">{{ categoria_nombre }}</span></li>
+    {% endif %}
+{% endblock %}
+
+{% block main %}
+    {% if pagination.getTotalItemCount > 0 %}
+        {% if categoria_nombre != 'Todas' %}
+            <div id="categoria">
+                <div id="categoria-left">
+                    <h2> {{ categoria.nombreCategoria }}</h2>
+                    <p> {{ categoria.descripcion }}</p>
+                </div>
+                <div id="categoria-right">
+                    <img src="{{ asset('img/categorias/' ~ categoria.imagen ) }}">
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+        <div class="libros">
+
+            {% for p in pagination %}
+            <div class="libro">
+                <a href="{{ path('frontend_libros_ver', {libro: p.libroId}) }}">
+                    <img src="{{ asset('img/libros/') }}{{ p.imagen }}" alt="...">
+                </a>
+                <h3>{{ p.nombreLibro }}</h3>
+                <p>{{ p.precio }} <i class="fa fa-eur" aria-hidden="true"></i>
+                    <br>
+                    <i class="fa fa-database" aria-hidden="true"></i>{{ p.stock }} en Stock
+                    {% if categoria_nombre == 'Todas' %}
+                    <br>
+                    <i class="fa fa-tags"></i>{{ p.nombreCategoria }}
+                    {% endif %}
+                    <br>
+                    <i class="fa fa-book"></i>{{ p.nombreEditorial }}
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    {% else %}
+        <h1>No hay libros en la categoria '{{ categoria_nombre }}'.</h1>
+    {% endif %}
+{% endblock %}
+

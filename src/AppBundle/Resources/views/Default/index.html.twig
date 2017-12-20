@@ -1,0 +1,113 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/APP/css/admin.css') }}" />
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/APP/js/admin.js') }}"></script>
+{% endblock %}
+
+{% block breadcrumb %}
+    <li>/ <span style="color: gray;">Administración</span></li>
+{% endblock %}
+
+{% block main %}
+    {% if libros.getTotalItemCount > 0 %}
+        <div class="navigation">
+            {{ knp_pagination_render(libros) }}
+        </div>
+        <div class="nuevoLibroMenu">
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="margin-bottom: 15px;">
+                Añadir un nuevo libro
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Insertar un nuevo libro</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            {{ form(nuevo_libro_formulario) }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table class="tablaLibros">
+            <thead>
+            <tr>
+                <th>
+                    Imagen
+                </th>
+                <th>
+                    Nombre de Libro
+                </th>
+                <th>
+                    Categoría
+                </th>
+                <th>
+                    Editorial
+                </th>
+                <th>
+                    Precio
+                </th>
+                <th>
+                    Stock
+                </th>
+                <th>
+                    Entrega
+                </th>
+                <th>
+                    Acciones
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for l in libros %}
+                <tr>
+                    <td>
+                        <img src="{{ asset('img/libros/') }}{{ l.imagen }}" alt="">
+                    </td>
+                    <td>
+                        <p>
+                            <b>{{ l.nombreLibro }}</b>
+                        </p>
+                        <p>{{ l.descripcion }}...</p>
+                    </td>
+                    <td>
+                        {{ l.nombreCategoria }}
+                    </td>
+                    <td>
+                        {{ l.nombreEditorial }}
+                    </td>
+                    <td>
+                        {{ l.precio }} €
+                    </td>
+                    <td>
+                        {{ l.stock }}
+                    </td>
+                    <td>
+                        {{ l.entrega }}
+                    </td>
+                    <td>
+                        <p>Editar</p>
+                        <p>Eliminar</p>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="navigation">
+            {{ knp_pagination_render(libros) }}
+        </div>
+    {% else %}
+        <h1>No hay libros.</h1>
+    {% endif %}
+{% endblock %}

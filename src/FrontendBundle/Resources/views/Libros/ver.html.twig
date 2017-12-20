@@ -1,34 +1,34 @@
 {% extends 'FrontendBundle:Default:index.html.twig' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('bundles/APP/css/default.css') }}" />
-    <link rel="stylesheet" href="{{ asset('bundles/APP/css/libros/verLibro.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/FRONT/css/default.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/FRONT/css/libros/verLibro.css') }}" />
 {% endblock %}
 
 {% block breadcrumb %}
     <li>/ <a href="{{ path('frontend_libros_libroscategoria', {categoria: 'all'}) }}">Libros</a></li>
-    <li>/ <span style="color: gray;">{{ libro.nombre }}</span></li>
+    <li>/ <span style="color: gray;">{{ libro.nombreLibro }}</span></li>
 {% endblock %}
 
 {% block main %}
     <div id="detalle">
-        <img src="{{ asset('img/plantas/') }}{{libro.imagen}}" alt="...">
+        <img src="{{ asset('img/libros/') }}{{libro.imagen}}" alt="...">
         <div id="datos">
-            <h2>{{libro.nombre}}-{{libro.codigolibro}}</h2>
+            <h2>{{libro.nombreLibro}}-{{libro.libroId}}</h2>
             <h4>{{categoria_nombre}}</h4>
             <p>{{libro.descripcion}}</p>
             <div id="extra">
                 <div>
-                    <label>Proveedor</label>
-                    <p>{{libro.proveedor}}</p>
+                    <label>Entrega</label>
+                    <p>{{libro.entrega}}</p>
                 </div>
                 <div>
                     <label>Precio</label>
-                    <p>{{libro.precioventa}} <i class="fa fa-eur" aria-hidden="true"></i></p>
+                    <p>{{libro.precio}} <i class="fa fa-eur" aria-hidden="true"></i></p>
                 </div>
                 <div>
                     <label>Cantidad en Stock</label>
-                    <p><i class="fa fa-database" aria-hidden="true"></i>{{libro.cantidadenstock}} </p>
+                    <p><i class="fa fa-database" aria-hidden="true"></i>{{libro.stock}} </p>
                 </div>
             </div>
         </div>

@@ -1,14 +1,18 @@
 {% extends '::base.html.twig' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('bundles/APP/css/default.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/FRONT/css/default.css') }}" />
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/FRONT/js/default.js') }}"></script>
 {% endblock %}
 
 {% block navcategorias %}
 
     <a href='{{ path('frontend_libros_libroscategoria', {categoria: 'all'}) }}'>Todas</a>
     {% for g in categorias %}
-        <a href='{{ path('frontend_libros_libroscategoria', {categoria: g.nombreCategoria}) }}'>{{ g.nombreCategoria }}</a>
+        <a href='{{ path('frontend_libros_libroscategoria', {categoria: g.categoriaid}) }}'>{{ g.nombreCategoria }}</a>
     {% endfor %}
 
 {% endblock %}
@@ -16,10 +20,8 @@
 {% block main %}
     <div id="inicio">
         <h1>Librerion - La librería de las librerías</h1>
-        <img src="{{ asset('img/inicio.jpg') }} ">
         <p>La forma de trabajar, la pasión que firmamos en cada proyecto, nos permite, desde Librerion, realizar todo tipo de trabajos, que van desde trabajos puntuales, mantenimientos a particulares, empresas, comunidades de propietarios.</p>
     </div>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 {% endblock %}
 
 

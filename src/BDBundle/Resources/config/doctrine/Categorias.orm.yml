@@ -19,4 +19,16 @@ BDBundle\Entity\Categorias:
                 fixed: false
                 default: ''
             column: nombre_categoria
+        descripcion:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+        imagen:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
     lifecycleCallbacks: {  }

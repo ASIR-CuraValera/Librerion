@@ -225,33 +225,4 @@ class Libros
     {
         return $this->editorid;
     }
-    /**
-     * @var integer
-     */
-    private $stock = '666';
-
-
-    /**
-     * Set stock
-     *
-     * @param integer $stock
-     *
-     * @return Libros
-     */
-    public function setStock($stock)
-    {
-        $this->stock = $stock;
-
-        return $this;
-    }
-
-    /**
-     * Get stock
-     *
-     * @return integer
-     */
-    public function getStock()
-    {
-        return $this->stock;
-    }
 }
