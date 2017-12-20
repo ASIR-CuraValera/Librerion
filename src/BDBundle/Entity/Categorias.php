@@ -109,4 +109,8 @@ class Categorias
     {
         return $this->imagen;
     }
+
+    public function __toString() {
+        return $this->nombreCategoria;
+    }
 }

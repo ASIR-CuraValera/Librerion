@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller;
 
+use BDBundle\Form\LibrosType;
 use DatabaseBundle\Entity\Gamasproducto;
 use Doctrine\DBAL\Types\DecimalType;
 use Doctrine\DBAL\Types\Type;
@@ -19,6 +20,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use BDBundle\Entity\LibrosRepository;
+use BDBundle\Entity\Libros;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DefaultController extends Controller
 {
@@ -46,28 +51,72 @@ class DefaultController extends Controller
         $this->Load($this, $request);
 
         //Formulario
-        $this->form = $this->createFormBuilder()
-            ->add('nombreProducto', TextType::class)
-            ->add('gamaProducto', ChoiceType::class, array(
-                'choices' => array_fill(0, sizeof($this->categorias), ''),
-                'choices_as_values' => true,
-                'choice_label' => function ($allChoices, $currentChoiceKey) {
-                    return $this->categorias[$currentChoiceKey]['nombreCategoria'];
-                }))
-            ->add('dimensionesProducto', TextType::class, array('attr' => array('value' => 'abc123')))
-            ->add('proveedorProducto', TextType::class, array('attr' => array('value' => 'abc123')))
-            ->add('descripcionProducto', TextType::class, array('attr' => array('value' => 'abc123')))
-            ->add('cantidadProducto', IntegerType::class, array('attr' => array('value' => '0')))//, Type::getType('smallint'))
-            ->add('precioVentaProducto', IntegerType::class, array('attr' => array('value' => '0')))//, DecimalType::class)
-            ->add('precioProveedorProducto', IntegerType::class, array('attr' => array('value' => '0')))
-            ->add('imagenProducto', TextType::class, array('attr' => array('value' => 'abc123')))
-            ->add('enviar', SubmitType::class)
-            ->getForm()->createView();
+        $entity = new Libros();
+        $this->form = $this->createCreateForm($entity);
 
         return $this->render('AppBundle:Default:index.html.twig', array(
             'libros' => $this->pagination,
             'categorias' => $this->categorias,
-            'nuevo_libro_formulario' => $this->form
+            'nuevo_libro_formulario' => $this->form->createView()
         ));
+    }
+
+    /**
+     * Creates a new Demo entity.
+     *
+     * @Route("/", name="app_crearlibro")
+     * @Method("POST")
+     *
+     */
+    public function createAction(Request $request)
+    {
+        //echo "aaa";
+        //die;
+
+        //This is optional. Do not do this check if you want to call the same action using a regular request.
+        if (!$request->isXmlHttpRequest()) {
+            return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
+        }
+
+        $entity = new Libros();
+        $form = $this->createCreateForm($entity);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            return new JsonResponse(array('message' => 'Success!'), 200);
+        }
+
+        $response = new JsonResponse(
+            array(
+                'message' => 'Error',
+                'form' => $this->render('AppBundle:Default:index.html.twig',
+                    array(
+                        'entity' => $entity,
+                        'form' => $form->createView(),
+                    ))), 400);
+
+        return $response;
+    }
+
+    /**
+     * Creates a form to create a Demo entity.
+     *
+     * @param Demo $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(Libros $entity)
+    {
+        $form = $this->createForm(LibrosType::class, $entity,
+            array(
+                'action' => $this->generateUrl('app_crearlibro'),
+                'method' => 'POST',
+            ));
+
+        return $form;
     }
 }

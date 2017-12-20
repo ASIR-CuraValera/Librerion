@@ -51,4 +51,8 @@ class Editores
     {
         return $this->nombreEditorial;
     }
+
+    public function __toString() {
+        return $this->nombreEditorial;
+    }
 }
